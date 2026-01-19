@@ -35,3 +35,6 @@ pipeline {
                 contextPath: 'hello-world',
                 war: 'target/hello-world.war'
             }
+}
+}
+}
