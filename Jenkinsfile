@@ -12,7 +12,7 @@ pipeline {
                 }
             }
           }
-      }
+      
       stage('Build') {
          agent {
 	    docker { image 'maven:3-openjdk-17' }
