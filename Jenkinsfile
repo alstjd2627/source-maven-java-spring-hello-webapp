@@ -2,11 +2,15 @@ pipeline {
    agent none
 
    stages {
-      stage('CheckOut') {
-          agent any
-	  steps {
-	     git branch: 'main',
-	     url: 'https://github.com/alstjd2627/source-maven-java-spring-hello-webapp.git'
+ stage('Checkout') {
+            steps {
+                sshagent(credentials: ['github-ssh']) {
+                    sh 'git --version'
+                    sh 'rm -rf .git || true'   // 워크스페이스 꼬임 방지(선택)
+                    git branch: 'main',
+                        url: 'git@github.com:alstjd2627/source-maven-java-spring-hello-webapp.git'
+                }
+            }
           }
       }
       stage('Build') {
