@@ -37,9 +37,11 @@ agent any
       agent any
       steps {
         withDockerRegistry(credentialsId: 'docker-hub-token', url: 'https://index.docker.io/v1/') {
-          sh 'docker image push minseong22/tomcat:$BUILD_NUMBER'
-          sh 'docker image push minseong22/tomcat:latest'
-        }
+	sh '''
+      DOCKER_TLS_VERIFY=0 DOCKER_CERT_PATH= docker -H tcp://192.168.56.154:2375 rm -f webserver || true
+      DOCKER_TLS_VERIFY=0 DOCKER_CERT_PATH= docker -H tcp://192.168.56.154:2375 run -d --name webserver -p 80:8080 minseong22/tomcat:latest
+    '''       
+ }
       }
     }
 
