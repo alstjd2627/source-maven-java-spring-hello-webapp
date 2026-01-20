@@ -2,16 +2,11 @@ pipeline {
   agent none
 
   stages {
-    stage('Checkout') {
-      agent any
-      steps {
-        sshagent(credentials: ['github-ssh']) {
-          sh 'rm -rf .git || true'
-          git branch: 'main',
-              url: 'git@github.com:alstjd2627/source-maven-java-spring-hello-webapp.git'
-        }
-      }
-    }
+stage('Checkout') {
+  steps {
+    checkout scm
+  }
+}      
 
     stage('Build') {
       agent {
